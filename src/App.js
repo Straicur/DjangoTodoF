@@ -18,13 +18,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(process.env.REACT_APP_API_ADDRES)
+    console.log(process.env.REACT_APP_API_ADDRESS)
+    console.log(process.env.REACT_APP_PORT)
     this.refreshList();
   }
 
   refreshList = () => {
     axios
-      .get(process.env.REACT_APP_API_ADDRES+":"+process.env.PORT+"/api/todos/")
+      .get(process.env.REACT_APP_API_ADDRESS+":"+process.env.REACT_APP_PORT+"/api/todos/")
       .then((res) => this.setState({ todoList: res.data }))
       .catch((err) => console.log(err));
   };
@@ -38,18 +39,18 @@ class App extends Component {
 
     if (item.id) {
       axios
-        .put(process.env.REACT_APP_API_ADDRES+":"+process.env.PORT+`/api/todos/${item.id}/`, item)
+        .put(process.env.REACT_APP_API_ADDRESS+":"+process.env.REACT_APP_PORT+`/api/todos/${item.id}/`, item)
         .then((res) => this.refreshList());
       return;
     }
     axios
-      .post(process.env.REACT_APP_API_ADDRES+":"+process.env.PORT+"/api/todos/", item)
+      .post(process.env.REACT_APP_API_ADDRESS+":"+process.env.REACT_APP_PORT+"/api/todos/", item)
       .then((res) => this.refreshList());
   };
 
   handleDelete = (item) => {
     axios
-      .delete(process.env.REACT_APP_API_ADDRES+":"+process.env.PORT+`/api/todos/${item.id}/`)
+      .delete(process.env.REACT_APP_API_ADDRESS+":"+process.env.REACT_APP_PORT+`/api/todos/${item.id}/`)
       .then((res) => this.refreshList());
   };
 
